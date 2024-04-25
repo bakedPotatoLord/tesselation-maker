@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		canvas{
+			border: 2px solid black;
+			border-radius: 2px;
+			background-color: white ;
+		}
+
+		#hidden{
+		display: none ;
+		}
+	</style>
+	<div id="hidden">
+		<img id="img" src="tsl.png">
+		<img id="img2" src="tsl2.png">
+		<img id="img3" src="tsl3.png">
+		<img id="img4" src="tsl4.png">
+		<img id="img5" src="tsl5.png">
+		<img id="img6" src="tsl6.png">
+	</div>
+</head>
+<body>
+	<canvas id="canvas" width=1440 height=800>
+
+
+
+	</canvas>
+	<script>
+		window.onload = function() {
+
+			ctx.webkitImageSmoothingEnabled = false;
+			ctx.mozImageSmoothingEnabled = false;
+			ctx.imageSmoothingEnabled = false;
+
+
+			console.log("script loaded")
+			
+			let image = document.getElementById("img2")
+			var tileSelector = 0;
+			let scale = 0.1
+			const width = 1600
+			const height = 800
+			var rotation 
+			var iX =0;
+			var iY =0;
+
+			let canvas = document.querySelector('canvas');
+			let ctx = canvas.getContext('2d');
+			canvas.addEventListener("mousemove", mouseListener(event));
+			
+			function mouseListener(event){
+			ctx.fillStyle= "white";
+			ctx.fillRect(0, 0, width, height);
+			
+			console.log("mousemoved")
+			while(iX < 20 ){
+
+				while(iY < 10 ){
+					function getRandomInt(max) {
+						return Math.floor(Math.random() * Math.floor(max));
+					}
+					
+					tileSelector = getRandomInt(6);
+					if( tileSelector == 0 ){
+					image = document.getElementById("img");
+					} else if( tileSelector == 1 ) {
+					image = document.getElementById("img2");
+					} else if( tileSelector == 2 ) {
+					image = document.getElementById("img3");
+					} else if( tileSelector == 3 ) {
+					image = document.getElementById("img4");
+					} else if( tileSelector == 4 ) {
+					image = document.getElementById("img5")
+					} else if( tileSelector == 5 ) {
+					image = document.getElementById("img6")
+					}
+					rotation= ( getRandomInt(4) * 90);
+					ctx.save();
+					ctx.translate( (iX * 80) + 40, (iY * 80) + 40 );
+					ctx.rotate( rotation * Math.PI / 180);
+					ctx.drawImage(image,-40 ,-40 , 80, 80);
+					ctx.restore();
+					console.log( tileSelector, iX, iY, rotation);
+				iY++ 
+				};
+			iY = 0;
+			iX++
+			};
+			}
+		};
+	</script>
+</body>
+
+
+</html>
